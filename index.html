@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>COUNTDOWN</title>
+  </head>
+  <body>
+    <div class="container">
+      
+      <h1 class="text-center">COUNTDOWN</h1>
+
+      <hr>
+
+      <button type="button" class="btn btn-primary" id="start_button">Start!</button>
+      <button type="button" class="btn btn-primary" id="next_button" hidden>Next...</button>
+      <button type="button" class="btn btn-danger" id="reset_button" disabled>RESET</button>
+      
+
+
+      <p> Time to read the question: <span id="read_timer">3 </span> Seconds</p>
+      <p> Time to answer the question: <span id="answer_timer">8 </span> Seconds</p>
+
+      <div class="row">
+        <div class="col-sm-2">
+          <h3>Group 1</h3>
+          <span id="group_1_timing"=></span>
+
+        </div>
+        <div class="col-sm-2">
+          <h3>Group 2</h3>
+          <span id="group_2_timing"=></span>
+          
+        </div>
+        <div class="col-sm-2">
+          <h3>Group 3</h3>
+          <span id="group_3_timing"=></span>
+
+        </div>
+        <div class="col-sm-2">
+          <h3>Group 4</h3>
+          <span id="group_4_timing"=></span>
+          
+        </div>
+        <div class="col-sm-2">
+          <h3>Group 5</h3>
+          <span id="group_5_timing"=></span>
+          
+        </div>
+      </div>
+
+
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
+    <script type="text/javascript">
+        var has1pressed = false;
+        var has2pressed = false;
+        var has3pressed = false;
+        var has4pressed = false;
+        var has5pressed = false;
+
+        var iskeylocked = true;
+
+        $("#start_button").click(function() {
+          var timeleft = 3;
+          $("#start_button").prop('disabled', true)
+          var readTimer = setInterval(function() {
+            timeleft--;
+            document.getElementById("read_timer").textContent = timeleft;
+            if (timeleft <= 0) {
+                $("#next_button").click()
+                clearInterval(readTimer);
+            }
+          },1000);
+        })
+
+        $("#next_button").click(function() {
+          var timeleft = 8;
+          iskeylocked = false;
+          var answerTimer = setInterval(function() {
+            timeleft--;
+            document.getElementById("answer_timer").textContent = timeleft;
+            if (timeleft <= 0) {
+                clearInterval(answerTimer);
+                $("#reset_button").prop('disabled', false)
+                iskeylocked = true
+            }
+          },1000);
+        })
+
+        $("#reset_button").click(function() {
+          $("#start_button").prop('disabled', false)
+          $("#reset_button").prop('disabled', true)
+          document.getElementById("read_timer").textContent = 3;
+          document.getElementById("answer_timer").textContent = 8;
+          document.getElementById("group_1_timing").textContent = ''
+          document.getElementById("group_2_timing").textContent = ''
+          document.getElementById("group_3_timing").textContent = ''
+          document.getElementById("group_4_timing").textContent = ''
+          document.getElementById("group_5_timing").textContent = ''
+
+        })
+
+        $(function() {
+          $(window).keypress(function(e) {
+            var key = e.which;
+            switch (key) {
+              case 49:
+                if (has1pressed == false && iskeylocked == false) {
+                  has1pressed = true
+                  document.getElementById("group_1_timing").textContent = document.getElementById("answer_timer").textContent;
+                }
+                break;
+              case 50:
+                if (has2pressed == false && iskeylocked == false) {
+                  has2pressed = true
+                  document.getElementById("group_2_timing").textContent = document.getElementById("answer_timer").textContent;
+                }
+                break;
+              case 51:
+                if (has3pressed == false && iskeylocked == false) {
+                  has3pressed = true
+                  document.getElementById("group_3_timing").textContent = document.getElementById("answer_timer").textContent;
+                }
+                break;
+              case 52:
+                if (has4pressed == false && iskeylocked == false) {
+                  has4pressed = true
+                  document.getElementById("group_4_timing").textContent = document.getElementById("answer_timer").textContent;
+                }
+                break;
+              case 53:
+                if (has5pressed == false && iskeylocked == false) {
+                  has5pressed = true
+                  document.getElementById("group_5_timing").textContent = document.getElementById("answer_timer").textContent;
+                }
+                break;
+            }
+          })
+        })
+    </script>
+  </body>
+</html>
