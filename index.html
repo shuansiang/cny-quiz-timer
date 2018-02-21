@@ -8,12 +8,26 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>COUNTDOWN</title>
+    <title>MS3 CNY 2018 Quiz Countdown Timer</title>
   </head>
+
+  <style type="text/css">
+    .points > div { 
+      text-align: center;
+    }
+
+    .points span {
+      color: red;
+      font-size: 40px;
+      font-weight: bold;
+    }
+
+  </style>
+
   <body>
     <div class="container">
       
-      <h1 class="text-center">COUNTDOWN</h1>
+      <h1 class="text-center">MS3 CNY 2018 Quiz Countdown Timer</h1>
 
       <hr>
 
@@ -23,11 +37,13 @@
       
 
 
-      <p> Time to read the question: <span id="read_timer">3 </span> Seconds</p>
-      <p> Time to answer the question: <span id="answer_timer">8 </span> Seconds</p>
+      <p> Time to read the question: <span id="read_timer">5 </span> Seconds</p>
+      <p> Time to answer the question: <span id="answer_timer">10 </span> Seconds</p>
 
-      <div class="row">
-        <div class="col-sm-2">
+      <hr>
+
+      <div class="row points">
+        <div class="col-sm-2 offset-sm-1">
           <h3>Group 1</h3>
           <span id="group_1_timing"=></span>
 
@@ -73,7 +89,7 @@
         var iskeylocked = true;
 
         $("#start_button").click(function() {
-          var timeleft = 3;
+          var timeleft = 5;
           $("#start_button").prop('disabled', true)
           var readTimer = setInterval(function() {
             timeleft--;
@@ -86,7 +102,7 @@
         })
 
         $("#next_button").click(function() {
-          var timeleft = 8;
+          var timeleft = 10;
           iskeylocked = false;
           var answerTimer = setInterval(function() {
             timeleft--;
@@ -110,6 +126,11 @@
           document.getElementById("group_4_timing").textContent = ''
           document.getElementById("group_5_timing").textContent = ''
 
+          has1pressed = false;
+          has2pressed = false;
+          has3pressed = false;
+          has4pressed = false;
+          has5pressed = false;
         })
 
         $(function() {
