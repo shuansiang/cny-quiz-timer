@@ -12,12 +12,20 @@
   </head>
 
   <style type="text/css">
+    body {
+      padding-bottom: 50px;
+    }
+    
     .points > div { 
       text-align: center;
     }
 
     .border-box {
       border: 1px solid;
+    }
+
+    .bold-text { 
+      font-weight: bold;
     }
   </style>
 
@@ -44,31 +52,46 @@
         <div class="col-sm-2 offset-sm-1">
           <h3>Group 1</h3>
           <span id="group_1_timing"=></span>
-          <div id="group_1_score" class="border-box"=></div>
+          <div class="border-box">
+            <div id="group_1_position" class="bold-text"></div>
+            <div id="group_1_score"=></div>
+          </div>
 
         </div>
         <div class="col-sm-2">
           <h3>Group 2</h3>
           <span id="group_2_timing"=></span>
-          <div id="group_2_score" class="border-box"=></div>
+          <div class="border-box">
+            <div id="group_2_position" class="bold-text"></div>
+            <div id="group_2_score"=></div>
+          </div>
           
         </div>
         <div class="col-sm-2">
           <h3>Group 3</h3>
           <span id="group_3_timing"=></span>
-          <div id="group_3_score" class="border-box"=></div>
+          <div class="border-box">
+            <div id="group_3_position" class="bold-text"></div>
+            <div id="group_3_score"=></div>
+          </div>
 
         </div>
         <div class="col-sm-2">
           <h3>Group 4</h3>
           <span id="group_4_timing"=></span>
-          <div id="group_4_score" class="border-box"=></div>
+          <div class="border-box">
+            <div id="group_4_position" class="bold-text"></div>
+            <div id="group_4_score"=></div>
+          </div>
           
         </div>
         <div class="col-sm-2">
           <h3>Group 5</h3>
           <span id="group_5_timing"=></span>
-          <div id="group_5_score" class="border-box"=></div>
+          <div class="border-box">
+            <div id="group_5_position" class="bold-text"></div>
+            <div id="group_5_score"=></div>
+          </div>
           
         </div>
       </div>
@@ -90,6 +113,9 @@
         var has5pressed = false;
 
         var iskeylocked = true;
+        var hastimerstarted = false;
+
+        var position = 1;
 
         $("#start_button").click(function() {
           var timeleft = 5;
@@ -135,12 +161,21 @@
           document.getElementById("group_3_score").textContent = ''
           document.getElementById("group_4_score").textContent = ''
           document.getElementById("group_5_score").textContent = ''
+          document.getElementById("group_1_position").textContent = ''
+          document.getElementById("group_2_position").textContent = ''
+          document.getElementById("group_3_position").textContent = ''
+          document.getElementById("group_4_position").textContent = ''
+          document.getElementById("group_5_position").textContent = ''
 
           has1pressed = false;
           has2pressed = false;
           has3pressed = false;
           has4pressed = false;
           has5pressed = false;
+
+          hastimerstarted = false
+
+          position = 1;
         })
 
         $(function() {
@@ -148,10 +183,25 @@
             var key = e.which;
             var timeTaken;
             switch (key) {
+              case 13:
+                if (hastimerstarted == false) {
+                  $("#start_button").click()
+                  hastimerstarted = true
+                }
+                break;
+              case 27:
+                if ($("#reset_button").is(":disabled")) {
+
+                } else {
+                  $("#reset_button").click()
+                }
+                break;
               case 49:
                 if (has1pressed == false && iskeylocked == false) {
                   has1pressed = true
                   timeTaken = 10 - parseInt(document.getElementById("answer_timer").textContent);
+                  document.getElementById("group_1_position").textContent = '#' + position;
+                  position++
                   document.getElementById("group_1_timing").textContent = timeTaken;
                   if (timeTaken>= 0 && timeTaken<= 5) {
                       $("#group_1_timing").css({ 'color': 'green', 'font-size': '40px', 'font-weight': ' bold' });
@@ -169,6 +219,8 @@
                 if (has2pressed == false && iskeylocked == false) {
                   has2pressed = true
                   timeTaken = 10 - parseInt(document.getElementById("answer_timer").textContent);
+                  document.getElementById("group_2_position").textContent = '#' + position;
+                  position++
                   document.getElementById("group_2_timing").textContent = timeTaken;
                   if (timeTaken >= 0 && timeTaken <= 5) {
                       $("#group_2_timing").css({ 'color': 'green', 'font-size': '40px', 'font-weight': ' bold' });
@@ -186,6 +238,8 @@
                 if (has3pressed == false && iskeylocked == false) {
                   has3pressed = true
                   timeTaken = 10 - parseInt(document.getElementById("answer_timer").textContent);
+                  document.getElementById("group_3_position").textContent = '#' + position;
+                  position++
                   document.getElementById("group_3_timing").textContent = timeTaken;
                   if (timeTaken >= 0 && timeTaken <= 5) {
                       $("#group_3_timing").css({ 'color': 'green', 'font-size': '40px', 'font-weight': ' bold' });
@@ -203,6 +257,8 @@
                 if (has4pressed == false && iskeylocked == false) {
                   has4pressed = true
                   timeTaken = 10 - parseInt(document.getElementById("answer_timer").textContent);
+                  document.getElementById("group_4_position").textContent = '#' + position;
+                  position++
                   document.getElementById("group_4_timing").textContent = timeTaken;
                   if (timeTaken >= 0 && timeTaken <= 5) {
                       $("#group_4_timing").css({ 'color': 'green', 'font-size': '40px', 'font-weight': ' bold' });
@@ -220,6 +276,8 @@
                 if (has5pressed == false && iskeylocked == false) {
                   has5pressed = true
                   timeTaken = 10 - parseInt(document.getElementById("answer_timer").textContent);
+                  document.getElementById("group_5_position").textContent = '#' + position;
+                  position++
                   document.getElementById("group_5_timing").textContent = timeTaken;
                   if (timeTaken >= 0 && timeTaken <= 5) {
                       $("#group_5_timing").css({ 'color': 'green', 'font-size': '40px', 'font-weight': ' bold' });
